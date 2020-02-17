@@ -7,6 +7,7 @@ NOTE: Change this class as you add support for:
 import dotenv,os,sys,requests,json
 from datetime import datetime
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options chrome_options = Options()
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from selenium.webdriver.chrome import service
@@ -105,7 +106,10 @@ class DriverFactory():
         elif  browser.lower() == "ie":
             local_driver = webdriver.Ie()
         elif browser.lower() == "chrome":
-            local_driver = webdriver.Chrome()
+            chrome_options.add_argument('--headless') 
+            chrome_options.add_argument('--no-sandbox') 
+            chrome_options.add_argument('--disable-dev-shm-usage') 
+            local_driver = webdriver.Chrome('/usr/bin/chromedriver', options=chrome_options)
         elif browser.lower() == "opera":
             opera_options = None
             try:
